@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Flashcards - Unit 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-container {
+            perspective: 1000px;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+        }
+        
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-front {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+        
+        .card-back {
+            background: rgba(255, 215, 0, 0.9);
+            color: #333;
+            transform: rotateY(180deg);
+        }
+        
+        .card-content {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .card-type {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .main-text {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .sub-text {
+            font-size: 1.1em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .example {
+            font-style: italic;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .controls {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #FFD700;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn:hover {
+            background: #FFD700;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .progress {
+            color: white;
+            font-size: 1.2em;
+            margin: 20px 0;
+        }
+        
+        .category-selector {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background: #FFD700;
+            color: #333;
+        }
+        
+        .hint {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .card-container {
+                height: 250px;
+            }
+            .main-text {
+                font-size: 1.4em;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇬🇧 English Flashcards</h1>
+        <p style="color: white; opacity: 0.9; margin-bottom: 20px;">Unit 1: Verb Tenses & Vocabulary</p>
+        
+        <div class="category-selector">
+            <button class="category-btn active" onclick="filterCards('all')">All Cards</button>
+            <button class="category-btn" onclick="filterCards('grammar')">Grammar</button>
+            <button class="category-btn" onclick="filterCards('vocabulary')">Vocabulary</button>
+            <button class="category-btn" onclick="filterCards('expressions')">Expressions</button>
+        </div>
+        
+        <div class="card-container">
+            <div class="flashcard" onclick="flipCard()">
+                <div class="card-face card-front">
+                    <div class="card-content">
+                        <div class="card-type" id="cardType">Grammar</div>
+                        <div class="main-text" id="frontText">Present Simple</div>
+                        <div class="sub-text" id="frontSubText">When do we use this tense?</div>
+                    </div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-content">
+                        <div class="main-text" id="backText">Daily routines, habits, facts</div>
+                        <div class="sub-text" id="backSubText">Subject + verb (+s for 3rd person)</div>
+                        <div class="example" id="exampleText">"I work every day" / "She works in Rome"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="progress">
+            Card <span id="currentCard">1</span> of <span id="totalCards">24</span>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="previousCard()" id="prevBtn">← Previous</button>
+            <button class="btn" onclick="flipCard()" id="flipBtn">Flip Card</button>
+            <button class="btn" onclick="nextCard()" id="nextBtn">Next →</button>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="shuffleCards()">🔀 Shuffle</button>
+            <button class="btn" onclick="resetCards()">🔄 Reset</button>
+        </div>
+        
+        <div class="hint">
+            💡 Click on the card or use the Flip button to see the answer
+        </div>
+    </div>
+
+    <script>
+        const flashcards = [
+            // Grammar Cards
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Present Simple",
+                frontSub: "When do we use this tense?",
+                back: "Daily routines, habits, facts",
+                backSub: "Subject + verb (+s for 3rd person)",
+                example: "\"I work every day\" / \"She works in Rome\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Present Continuous",
+                frontSub: "When do we use this tense?",
+                back: "Actions happening now, temporary situations",
+                backSub: "Subject + am/is/are + verb-ing",
+                example: "\"I am studying now\" / \"She is working today\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Past Simple",
+                frontSub: "When do we use this tense?",
+                back: "Completed actions in the past",
+                backSub: "Subject + verb-ed / irregular form",
+                example: "\"I visited Rome\" / \"We went to the cinema\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Future 'going to'",
+                frontSub: "When do we use this form?",
+                back: "Plans, intentions, predictions",
+                backSub: "Subject + am/is/are + going to + verb",
+                example: "\"I'm going to study\" / \"It's going to rain\""
+            },
+            
+            // Vocabulary Cards
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Daily Routine",
+                frontSub: "What's the Italian translation?",
+                back: "Routine quotidiana",
+                backSub: "Things you do every day",
+                example: "\"My daily routine includes breakfast at 7 AM\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Workplace",
+                frontSub: "What's the Italian translation?",
+                back: "Posto di lavoro",
+                backSub: "Where you work",
+                example: "\"My workplace is in the city center\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Hobby",
+                frontSub: "What's the Italian translation?",
+                back: "Passatempo / Hobby",
+                backSub: "Activity you enjoy in free time",
+                example: "\"Reading is my favorite hobby\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Schedule",
+                frontSub: "What's the Italian translation?",
+                back: "Programma / Orario",
+                backSub: "Plan of activities and times",
+                example: "\"What's your schedule for tomorrow?\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Experience",
+                frontSub: "What's the Italian translation?",
+                back: "Esperienza",
+                backSub: "Something that happened to you",
+                example: "\"That was an amazing experience!\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Usually",
+                frontSub: "What's the Italian translation?",
+                back: "Di solito / Solitamente",
+                backSub: "Most of the time",
+                example: "\"I usually wake up at 7 AM\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Sometimes",
+                frontSub: "What's the Italian translation?",
+                back: "Qualche volta / A volte",
+                backSub: "Not always, but occasionally",
+                example: "\"Sometimes I work late\""
+            },
+            {
+                type: "Vocabulary",
+                category: "vocabulary",
+                front: "Never",
+                frontSub: "What's the Italian translation?",
+                back: "Mai",
+                backSub: "Not at any time",
+                example: "\"I never drink coffee at night\""
+            },
+            
+            // Expression Cards
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "How often...?",
+                frontSub: "What does this mean?",
+                back: "Quanto spesso...?",
+                backSub: "Used to ask about frequency",
+                example: "\"How often do you go to the gym?\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "What time...?",
+                frontSub: "What does this mean?",
+                back: "A che ora...?",
+                backSub: "Used to ask about specific times",
+                example: "\"What time do you start work?\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "Right now",
+                frontSub: "What does this mean?",
+                back: "Proprio ora / In questo momento",
+                backSub: "At this exact moment",
+                example: "\"I can't talk right now, I'm busy\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "Last week/month/year",
+                frontSub: "What does this mean?",
+                back: "La settimana/il mese/l'anno scorso",
+                backSub: "Used for past time references",
+                example: "\"I went to Paris last month\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "Next week/month/year",
+                frontSub: "What does this mean?",
+                back: "La prossima settimana/il prossimo mese/anno",
+                backSub: "Used for future time references",
+                example: "\"We're going to move next year\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "I'm planning to...",
+                frontSub: "What does this mean?",
+                back: "Sto pianificando di... / Ho intenzione di...",
+                backSub: "Used to talk about future plans",
+                example: "\"I'm planning to learn Spanish\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "At the moment",
+                frontSub: "What does this mean?",
+                back: "Al momento / In questo periodo",
+                backSub: "Currently, now",
+                example: "\"At the moment, I'm working from home\""
+            },
+            {
+                type: "Expressions",
+                category: "expressions",
+                front: "These days",
+                frontSub: "What does this mean?",
+                back: "In questi giorni / Ultimamente",
+                backSub: "Recently, nowadays",
+                example: "\"These days, everyone works online\""
+            },
+            
+            // More Grammar Cards
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Question with Present Simple",
+                frontSub: "How do we make questions?",
+                back: "Do/Does + subject + verb?",
+                backSub: "Use 'does' for he/she/it",
+                example: "\"Do you work?\" / \"Does she live here?\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Negative Present Simple",
+                frontSub: "How do we make negatives?",
+                back: "Subject + don't/doesn't + verb",
+                backSub: "Use 'doesn't' for he/she/it",
+                example: "\"I don't work\" / \"She doesn't live here\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Question with Past Simple",
+                frontSub: "How do we make questions?",
+                back: "Did + subject + verb?",
+                backSub: "Use base form of verb after 'did'",
+                example: "\"Did you go?\" / \"Did she visit Rome?\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Negative Past Simple",
+                frontSub: "How do we make negatives?",
+                back: "Subject + didn't + verb",
+                backSub: "Use base form of verb after 'didn't'",
+                example: "\"I didn't go\" / \"She didn't visit Rome\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Time Expressions Present",
+                frontSub: "Give examples",
+                back: "Every day, always, usually, often",
+                backSub: "Words that indicate present habits",
+                example: "\"I always drink coffee\" / \"She often works late\""
+            },
+            {
+                type: "Grammar",
+                category: "grammar",
+                front: "Time Expressions Past",
+                frontSub: "Give examples",
+                back: "Yesterday, last week, ago, in 2020",
+                backSub: "Words that indicate past time",
+                example: "\"I saw him yesterday\" / \"We met two years ago\""
+            }
+        ];
+        
+        let currentCards = [...flashcards];
+        let currentIndex = 0;
+        let isFlipped = false;
+        
+        function updateCard() {
+            const card = currentCards[currentIndex];
+            const flashcard = document.querySelector('.flashcard');
+            
+            document.getElementById('cardType').textContent = card.type;
+            document.getElementById('frontText').textContent = card.front;
+            document.getElementById('frontSubText').textContent = card.frontSub;
+            document.getElementById('backText').textContent = card.back;
+            document.getElementById('backSubText').textContent = card.backSub;
+            document.getElementById('exampleText').textContent = card.example;
+            
+            document.getElementById('currentCard').textContent = currentIndex + 1;
+            document.getElementById('totalCards').textContent = currentCards.length;
+            
+            // Reset flip state
+            flashcard.classList.remove('flipped');
+            isFlipped = false;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === currentCards.length - 1;
+        }
+        
+        function flipCard() {
+            const flashcard = document.querySelector('.flashcard');
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+        
+        function nextCard() {
+            if (currentIndex < currentCards.length - 1) {
+                currentIndex++;
+                updateCard();
+            }
+        }
+        
+        function previousCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCard();
+            }
+        }
+        
+        function shuffleCards() {
+            for (let i = currentCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+        
+        function resetCards() {
+            currentCards = [...flashcards];
+            currentIndex = 0;
+            updateCard();
+            
+            // Reset category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.category-btn').classList.add('active');
+        }
+        
+        function filterCards(category) {
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (category === 'all') {
+                currentCards = [...flashcards];
+            } else {
+                currentCards = flashcards.filter(card => card.category === category);
+            }
+            
+            currentIndex = 0;
+            updateCard();
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    nextCard();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    previousCard();
+                    break;
+                case 'ArrowUp':
+                case 'ArrowDown':
+                    e.preventDefault();
+                    flipCard();
+                    break;
+            }
+        });
+        
+        // Initialize
+        updateCard();
+    </script>
+</body>
+</html>
