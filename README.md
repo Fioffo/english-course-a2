@@ -11,7 +11,7 @@ Un corso completo di inglese livello A2 con materiali interattivi, giochi e eser
 
 ## 🚀 Demo Live
 
-Visita il corso: [https://Fioffo.github.io/english-course-a2](https://Fioffo.github.io/english-course-a2)
+Visita il corso: [https://fioffo.github.io/english-course-a2](https://fioffo.github.io/english-course-a2)
 
 ## 📚 Contenuti
 
