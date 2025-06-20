@@ -1,0 +1,34 @@
+# Configurazione Jekyll per GitHub Pages
+title: "Corso di Inglese A2"
+description: "Un corso completo di inglese livello A2 con materiali interattivi"
+url: "https://tuonome.github.io"
+baseurl: "/english-course-a2"
+
+# Tema GitHub Pages
+theme: minima
+
+# Impostazioni
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Plugin
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Escludere file
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Impostazioni SEO
+lang: it
+author: "Il Tuo Nome"
+
+# Social
+github_username: tuonome
