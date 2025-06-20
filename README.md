@@ -11,7 +11,7 @@ Un corso completo di inglese livello A2 con materiali interattivi, giochi e eser
 
 ## 🚀 Demo Live
 
-Visita il corso: [https://tuonome.github.io/english-course-a2](https://tuonome.github.io/english-course-a2)
+Visita il corso: [https://Fioffo.github.io/english-course-a2](https://Fioffo.github.io/english-course-a2)
 
 ## 📚 Contenuti
 
@@ -50,7 +50,7 @@ Questo progetto è rilasciato sotto licenza MIT. Vedi `LICENSE` per dettagli.
 
 ## 👨‍💻 Autore
 
-**Il Tuo Nome** - [@tuonome](https://github.com/tuonome)
+**Fioffo** - [@Fioffo](https://github.com/Fioffo)
 
 ---
 
