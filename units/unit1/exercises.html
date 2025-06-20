@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizi Unit 1 - Verb Tenses Review</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .navigation {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid #FFD700;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: #FFD700;
+            color: #333;
+        }
+        
+        .exercise-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+        
+        .exercise-container.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .exercise-title {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFD700;
+            padding-bottom: 10px;
+        }
+        
+        .question {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #28a745;
+            color: white;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #dc3545;
+            color: white;
+        }
+        
+        .text-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .exercise-controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-check {
+            background: #28a745;
+        }
+        
+        .btn-check:hover {
+            background: #218838;
+        }
+        
+        .btn-reset {
+            background: #6c757d;
+        }
+        
+        .btn-reset:hover {
+            background: #5a6268;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .score {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .home-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .exercise-container {
+                padding: 25px;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="home-btn">← Home</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📚 Unit 1: Verb Tenses Review</h1>
+            <p>Esercizi Interattivi - Livello A2</p>
+        </div>
+        
+        <div class="navigation">
+            <button class="nav-btn active" onclick="showExercise(1)">Esercizio 1: Scelta Multipla</button>
+            <button class="nav-btn" onclick="showExercise(2)">Esercizio 2: Completa le Frasi</button>
+            <button class="nav-btn" onclick="showExercise(3)">Esercizio 3: Trova l'Errore</button>
+            <button class="nav-btn" onclick="showExercise(4)">Esercizio 4: Abbina i Tempi</button>
+        </div>
+        
+        <!-- Exercise 1: Multiple Choice -->
+        <div class="exercise-container active" id="exercise1">
+            <h2 class="exercise-title">🎯 Esercizio 1: Scegli il Tempo Corretto</h2>
+            <div class="score" id="score1">Punteggio: 0/8</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress1" style="width: 0%">0%</div>
+            </div>
+            
+            <div class="question" data-answer="0">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    I __________ (work) as a teacher at the local school.
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 0, 0)">work</div>
+                    <div class="option" onclick="selectOption(this, 0, 1)">am working</div>
+                    <div class="option" onclick="selectOption(this, 0, 2)">worked</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" data-answer="1">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    Look! It __________ (rain) outside.
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 1, 0)">rains</div>
+                    <div class="option" onclick="selectOption(this, 1, 1)">is raining</div>
+                    <div class="option" onclick="selectOption(this, 1, 2)">rained</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" data-answer="2">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    We __________ (visit) our grandparents last weekend.
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 2, 0)">visit</div>
+                    <div class="option" onclick="selectOption(this, 2, 1)">are visiting</div>
+                    <div class="option" onclick="selectOption(this, 2, 2)">visited</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question" data-answer="1">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    She __________ (buy) a new car next month.
+                </div>
+                <div class="options">
+                    <div class="option" onclick="selectOption(this, 3, 0)">buys</div>
+                    <div class="option" onclick="selectOption(this, 3, 1)">is going to buy</div>
+                    <div class="option" onclick="selectOption(this, 3, 2)">bought</div>
+                </div>
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="btn btn-check" onclick="checkExercise(1)">Controlla Risposte</button>
+                <button class="btn btn-reset" onclick="resetExercise(1)">Ricomincia</button>
+            </div>
+        </div>
+        
+        <!-- Exercise 2: Fill in the blanks -->
+        <div class="exercise-container" id="exercise2">
+            <h2 class="exercise-title">✏️ Esercizio 2: Completa le Frasi</h2>
+            <div class="score" id="score2">Punteggio: 0/6</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress2" style="width: 0%">0%</div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    Every morning, I __________ (drink) coffee and __________ (read) the newspaper.
+                </div>
+                <input type="text" class="text-input" placeholder="drink" data-answer="drink">
+                <input type="text" class="text-input" placeholder="read" data-answer="read">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    Right now, my sister __________ (cook) dinner in the kitchen.
+                </div>
+                <input type="text" class="text-input" placeholder="is cooking" data-answer="is cooking">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    Last year, we __________ (travel) to Spain for our holidays.
+                </div>
+                <input type="text" class="text-input" placeholder="travelled" data-answer="travelled">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    Next weekend, I __________ (visit) my cousin in Rome.
+                </div>
+                <input type="text" class="text-input" placeholder="am going to visit" data-answer="am going to visit">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="btn btn-check" onclick="checkExercise(2)">Controlla Risposte</button>
+                <button class="btn btn-reset" onclick="resetExercise(2)">Ricomincia</button>
+            </div>
+        </div>
+        
+        <!-- Exercise 3: Find the mistake -->
+        <div class="exercise-container" id="exercise3">
+            <h2 class="exercise-title">🔍 Esercizio 3: Trova e Correggi l'Errore</h2>
+            <div class="score" id="score3">Punteggio: 0/6</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress3" style="width: 0%">0%</div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    <strong>Frase sbagliata:</strong> "I am work in a big company in Milan."
+                </div>
+                <input type="text" class="text-input" placeholder="Scrivi la correzione..." data-answer="I work in a big company in Milan">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    <strong>Frase sbagliata:</strong> "She go to the gym three times a week."
+                </div>
+                <input type="text" class="text-input" placeholder="Scrivi la correzione..." data-answer="She goes to the gym three times a week">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    <strong>Frase sbagliata:</strong> "We was at the beach yesterday."
+                </div>
+                <input type="text" class="text-input" placeholder="Scrivi la correzione..." data-answer="We were at the beach yesterday">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="question">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    <strong>Frase sbagliata:</strong> "They going to move to a new house next month."
+                </div>
+                <input type="text" class="text-input" placeholder="Scrivi la correzione..." data-answer="They are going to move to a new house next month">
+                <div class="feedback"></div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="btn btn-check" onclick="checkExercise(3)">Controlla Risposte</button>
+                <button class="btn btn-reset" onclick="resetExercise(3)">Ricomincia</button>
+            </div>
+        </div>
+        
+        <!-- Exercise 4: Match situations -->
+        <div class="exercise-container" id="exercise4">
+            <h2 class="exercise-title">🎯 Esercizio 4: Abbina le Situazioni ai Tempi</h2>
+            <div class="score" id="score4">Punteggio: 0/4</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress4" style="width: 0%">0%</div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Situazioni:</h3>
+                    <div class="match-item" draggable="true" data-situation="A">
+                        <strong>A.</strong> I'm reading a book at the moment.
+                    </div>
+                    <div class="match-item" draggable="true" data-situation="B">
+                        <strong>B.</strong> I read books every evening.
+                    </div>
+                    <div class="match-item" draggable="true" data-situation="C">
+                        <strong>C.</strong> I read three books last month.
+                    </div>
+                    <div class="match-item" draggable="true" data-situation="D">
+                        <strong>D.</strong> I'm going to read a new book tomorrow.
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Spiegazioni:</h3>
+                    <div class="drop-zone" data-explanation="1">
+                        <strong>1.</strong> A habit or routine
+                        <div class="dropped-item"></div>
+                    </div>
+                    <div class="drop-zone" data-explanation="2">
+                        <strong>2.</strong> An action happening now
+                        <div class="dropped-item"></div>
+                    </div>
+                    <div class="drop-zone" data-explanation="3">
+                        <strong>3.</strong> A completed action in the past
+                        <div class="dropped-item"></div>
+                    </div>
+                    <div class="drop-zone" data-explanation="4">
+                        <strong>4.</strong> A future plan or intention
+                        <div class="dropped-item"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="btn btn-check" onclick="checkExercise(4)">Controlla Risposte</button>
+                <button class="btn btn-reset" onclick="resetExercise(4)">Ricomincia</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Exercise data and state
+        let exerciseScores = [0, 0, 0, 0];
+        let exerciseAnswers = [
+            [], // Exercise 1
+            [], // Exercise 2  
+            [], // Exercise 3
+            []  // Exercise 4
+        ];
+        
+        // Correct answers for exercises
+        const correctAnswers = {
+            1: [0, 1, 2, 1], // Multiple choice answers
+            2: ['drink', 'read', 'is cooking', 'travelled', 'am going to visit'],
+            3: [
+                'I work in a big company in Milan',
+                'She goes to the gym three times a week', 
+                'We were at the beach yesterday',
+                'They are going to move to a new house next month'
+            ],
+            4: ['B', 'A', 'C', 'D'] // Matching exercise
+        };
+        
+        // Show specific exercise
+        function showExercise(num) {
+            // Hide all exercises
+            document.querySelectorAll('.exercise-container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            // Show selected exercise
+            document.getElementById('exercise' + num).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // Exercise 1: Multiple choice
+        function selectOption(element, questionIndex, optionIndex) {
+            const question = element.closest('.question');
+            const options = question.querySelectorAll('.option');
+            
+            // Clear previous selections
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Select current option
+            element.classList.add('selected');
+            
+            // Store answer
+            exerciseAnswers[0][questionIndex] = optionIndex;
+        }
+        
+        // Check exercise answers
+        function checkExercise(exerciseNum) {
+            switch(exerciseNum) {
+                case 1:
+                    checkMultipleChoice();
+                    break;
+                case 2:
+                    checkFillBlanks();
+                    break;
+                case 3:
+                    checkCorrectMistakes();
+                    break;
+                case 4:
+                    checkMatching();
+                    break;
+            }
+        }
+        
+        function checkMultipleChoice() {
+            const questions = document.querySelectorAll('#exercise1 .question');
+            let score = 0;
+            
+            questions.forEach((question, index) => {
+                const correctAnswer = parseInt(question.dataset.answer);
+                const userAnswer = exerciseAnswers[0][index];
+                const options = question.querySelectorAll('.option');
+                const feedback = question.querySelector('.feedback');
+                
+                // Reset option styles
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+                
+                if (userAnswer !== undefined) {
+                    if (userAnswer === correctAnswer) {
+                        options[userAnswer].classList.add('correct');
+                        feedback.className = 'feedback correct';
+                        feedback.textContent = '✅ Corretto!';
+                        feedback.style.display = 'block';
+                        score++;
+                    } else {
+                        options[userAnswer].classList.add('incorrect');
+                        options[correctAnswer].classList.add('correct');
+                        feedback.className = 'feedback incorrect';
+                        feedback.textContent = '❌ Sbagliato. La risposta corretta è evidenziata in verde.';
+                        feedback.style.display = 'block';
+                    }
+                }
+            });
+            
+            updateScore(1, score, 4);
+        }
+        
+        function checkFillBlanks() {
+            const inputs = document.querySelectorAll('#exercise2 .text-input');
+            let score = 0;
+            
+            inputs.forEach((input, index) => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.answer.toLowerCase();
+                const feedback = input.closest('.question').querySelector('.feedback');
+                
+                if (userAnswer === correctAnswer) {
+                    input.style.borderColor = '#28a745';
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✅ Corretto!';
+                    feedback.style.display = 'block';
+                    score++;
+                } else {
+                    input.style.borderColor = '#dc3545';
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = `❌ Sbagliato. Risposta corretta: "${input.dataset.answer}"`;
+                    feedback.style.display = 'block';
+                }
+            });
+            
+            updateScore(2, score, inputs.length);
+        }
+        
+        function checkCorrectMistakes() {
+            const inputs = document.querySelectorAll('#exercise3 .text-input');
+            let score = 0;
+            
+            inputs.forEach((input, index) => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = correctAnswers[3][index].toLowerCase();
+                const feedback = input.closest('.question').querySelector('.feedback');
+                
+                if (userAnswer === correctAnswer) {
+                    input.style.borderColor = '#28a745';
+                    feedback.className = 'feedback correct';
+                    feedback.textContent = '✅ Corretto!';
+                    feedback.style.display = 'block';
+                    score++;
+                } else {
+                    input.style.borderColor = '#dc3545';
+                    feedback.className = 'feedback incorrect';
+                    feedback.textContent = `❌ Sbagliato. Risposta corretta: "${correctAnswers[3][index]}"`;
+                    feedback.style.display = 'block';
+                }
+            });
+            
+            updateScore(3, score, inputs.length);
+        }
+        
+        function checkMatching() {
+            const dropZones = document.querySelectorAll('#exercise4 .drop-zone');
+            let score = 0;
+            
+            dropZones.forEach((zone, index) => {
+                const droppedItem = zone.querySelector('.dropped-item');
+                const correctSituation = correctAnswers[4][index];
+                
+                if (droppedItem.textContent.includes(correctSituation)) {
+                    droppedItem.style.background = '#28a745';
+                    droppedItem.style.color = 'white';
+                    score++;
+                } else {
+                    droppedItem.style.background = '#dc3545';
+                    droppedItem.style.color = 'white';
+                }
+            });
+            
+            updateScore(4, score, 4);
+        }
+        
+        function updateScore(exerciseNum, score, total) {
+            exerciseScores[exerciseNum - 1] = score;
+            const percentage = Math.round((score / total) * 100);
+            
+            document.getElementById('score' + exerciseNum).textContent = `Punteggio: ${score}/${total}`;
+            document.getElementById('progress' + exerciseNum).style.width = percentage + '%';
+            document.getElementById('progress' + exerciseNum).textContent = percentage + '%';
+        }
+        
+        function resetExercise(exerciseNum) {
+            exerciseAnswers[exerciseNum - 1] = [];
+            
+            const container = document.getElementById('exercise' + exerciseNum);
+            
+            // Reset multiple choice
+            container.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Reset text inputs
+            container.querySelectorAll('.text-input').forEach(input => {
+                input.value = '';
+                input.style.borderColor = '#e9ecef';
+            });
+            
+            // Reset feedback
+            container.querySelectorAll('.feedback').forEach(feedback => {
+                feedback.style.display = 'none';
+            });
+            
+            // Reset drag and drop
+            container.querySelectorAll('.dropped-item').forEach(item => {
+                item.textContent = '';
+                item.style.background = '';
+                item.style.color = '';
+            });
+            
+            // Reset score
+            updateScore(exerciseNum, 0, exerciseNum === 1 ? 4 : exerciseNum === 4 ? 4 : 6);
+        }
+        
+        // Drag and Drop functionality for Exercise 4
+        document.addEventListener('DOMContentLoaded', function() {
+            const matchItems = document.querySelectorAll('.match-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            // Add styles for match items and drop zones
+            const style = document.createElement('style');
+            style.textContent = `
+                .match-item {
+                    background: #f8f9fa;
+                    border: 2px solid #667eea;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 10px 0;
+                    cursor: grab;
+                    transition: all 0.3s ease;
+                }
+                
+                .match-item:hover {
+                    background: #e9ecef;
+                    transform: translateY(-2px);
+                }
+                
+                .match-item.dragging {
+                    opacity: 0.5;
+                    transform: rotate(5deg);
+                }
+                
+                .drop-zone {
+                    background: #f8f9fa;
+                    border: 2px dashed #ccc;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 10px 0;
+                    min-height: 60px;
+                    position: relative;
+                    transition: all 0.3s ease;
+                }
+                
+                .drop-zone.drag-over {
+                    border-color: #667eea;
+                    background: #f0f0ff;
+                }
+                
+                .dropped-item {
+                    background: #667eea;
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 20px;
+                    margin-top: 10px;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            matchItems.forEach(item => {
+                item.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', item.dataset.situation);
+                    item.classList.add('dragging');
+                });
+                
+                item.addEventListener('dragend', e => {
+                    item.classList.remove('dragging');
+                });
+            });
+            
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    zone.classList.add('drag-over');
+                });
+                
+                zone.addEventListener('dragleave', e => {
+                    zone.classList.remove('drag-over');
+                });
+                
+                zone.addEventListener('drop', e => {
+                    e.preventDefault();
+                    zone.classList.remove('drag-over');
+                    
+                    const situation = e.dataTransfer.getData('text/plain');
+                    const droppedItem = zone.querySelector('.dropped-item');
+                    droppedItem.textContent = `Situazione ${situation}`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
